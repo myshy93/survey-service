@@ -4,16 +4,20 @@
 
 ### Authentication
 
+This API is using Basic Authentication
+
 #### User registration
-`/accounts/register`
+`/register`
 
-#### User sign in
-`/accounts/login`
+Roles available: ROLE_USER or ROLE_ADMIN
 
-#### User sign out
-`/accounts/logout`
-
-
+```json
+{
+    "username": "mihai",
+    "password": "test",
+    "roles": "ROLE_USER"
+}
+```
 ### Surveys
 
 #### Get all surveys

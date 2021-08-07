@@ -1,22 +1,26 @@
 package com.dinu.survey.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "user", schema = "public")
 public class User {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
-    @NotBlank (message = "Username is mandatory.")
+
+    @NotBlank(message = "Username is mandatory.")
+    @Column(name = "username")
     private String username;
-    @NotBlank (message = "Password is mandatory.")
+
+    @NotBlank(message = "Password is mandatory.")
+    @Column(name = "password")
     private String password;
-    @NotBlank (message = "Roles are mandatory.")
+
+    @Column(name = "roles")
+    @NotBlank(message = "Roles are mandatory.")
     private String roles;
 
     public Long getId() {

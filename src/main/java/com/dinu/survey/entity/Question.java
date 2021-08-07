@@ -3,7 +3,6 @@ package com.dinu.survey.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class Question {
     private String question;
     @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
     private Set<Answer> answers;
-    @NotNull (message = "Required field is mandatory.")
+    @NotNull(message = "Required field is mandatory.")
     boolean required;
 
 
