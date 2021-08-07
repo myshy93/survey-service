@@ -1,7 +1,10 @@
-package com.dinu.survey.dao;
+package com.dinu.survey.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -10,10 +13,11 @@ public class Question {
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
+    @NotBlank(message = "Question text is mandatory.")
     private String question;
-    @ElementCollection
-    @CollectionTable
-    private Set<String> answers;
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
+    private Set<Answer> answers;
+    @NotNull (message = "Required field is mandatory.")
     boolean required;
 
 
@@ -25,11 +29,11 @@ public class Question {
         this.question = question;
     }
 
-    public Set<String> getAnswers() {
+    public Set<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<String> answers) {
+    public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
     }
 

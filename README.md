@@ -25,6 +25,7 @@ Get a list of all available surveys
 #### Get survey by ID
 `GET /surveys/{id}`
 
+
 #### Define survey
 
 Add a new survey in system.
@@ -60,6 +61,30 @@ POST Request body example
 }
 ```
 
-#### Conduct
+#### Conduct survey
+
+##### View open surveys
+`GET /surveys?open`
+
+##### Open survey
+`POST /surveys/{id}/open`
+
+##### Close survey
+`POST /surveys/{id}/close`
+
+##### Respond to survey
+`POST /surveys/{id}/respond`
+
+```json
+{
+  "survey": 10,
+  "answers": [
+    {
+      "question": 1,
+      "answer": 10
+    }
+  ]
+}
+```
 
 #### View Results

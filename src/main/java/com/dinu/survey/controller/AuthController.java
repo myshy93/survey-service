@@ -1,39 +1,28 @@
 package com.dinu.survey.controller;
 
-import com.dinu.survey.entity.Survey;
-import com.dinu.survey.repository.SurveyRepository;
+import com.dinu.survey.entity.User;
+import com.dinu.survey.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
-public class SurveyController {
-    private final SurveyRepository repository;
+public class AuthController {
 
-    public SurveyController(SurveyRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    UserRepository repository;
 
-    @PostMapping("/surveys")
-    Survey newSurvey(@Valid @RequestBody Survey newSurvey) {
-        return repository.save(newSurvey);
-    }
-
-    @GetMapping("/surveys")
-    List<Survey> getAllSurveys() {
-        return repository.findAll();
-    }
-
-    @GetMapping("/surveys/{id}")
-    Survey getOneSurvey(@PathVariable Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new SurveyNotFoundException(id));
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    String registerUser(@Validated @RequestBody User user) {
+        repository.save(user);
+        return "User " + user.getUsername() + " added.";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

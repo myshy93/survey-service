@@ -1,6 +1,7 @@
-package com.dinu.survey.dao;
+package com.dinu.survey.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -9,9 +10,11 @@ public class Survey {
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
+    @NotBlank(message = "Title is mandatory.")
     private String title;
     @OneToMany(targetEntity = Question.class, cascade = CascadeType.ALL)
     private Set<Question> questions;
+    private boolean open;
 
     public Long getId() {
         return id;
@@ -36,4 +39,14 @@ public class Survey {
     public void setQuestions(Set<Question> questions) {
         this.questions = questions;
     }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+
 }
