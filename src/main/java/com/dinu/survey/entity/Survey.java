@@ -1,5 +1,7 @@
 package com.dinu.survey.entity;
 
+import com.dinu.survey.security.AppUserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
@@ -10,10 +12,16 @@ public class Survey {
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
+
     @NotBlank(message = "Title is mandatory.")
     private String title;
+
     @OneToMany(targetEntity = Question.class, cascade = CascadeType.ALL)
     private Set<Question> questions;
+
+    @ManyToOne(targetEntity = AppUser.class)
+    private AppUser creator;
+
     private boolean open = false;
 
     public Long getId() {
@@ -48,5 +56,11 @@ public class Survey {
         this.open = open;
     }
 
+    public AppUser getCreator() {
+        return creator;
+    }
 
+    public void setCreator(AppUser creator) {
+        this.creator = creator;
+    }
 }

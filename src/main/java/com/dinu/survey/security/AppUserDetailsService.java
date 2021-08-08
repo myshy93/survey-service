@@ -1,6 +1,6 @@
 package com.dinu.survey.security;
 
-import com.dinu.survey.entity.User;
+import com.dinu.survey.entity.AppUser;
 import com.dinu.survey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = this.userRepository.findByUsername(username);
+        AppUser user = this.userRepository.findByUsername(username);
         if (user == null)
             throw new UsernameNotFoundException("User not found");
         return new AppUserDetails(user);

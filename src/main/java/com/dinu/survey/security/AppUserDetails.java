@@ -1,6 +1,6 @@
 package com.dinu.survey.security;
 
-import com.dinu.survey.entity.User;
+import com.dinu.survey.entity.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class AppUserDetails implements UserDetails {
 
-    private User user;
+    private final AppUser user;
 
-    public AppUserDetails(User user) {
+    public AppUserDetails(AppUser user) {
         this.user = user;
     }
 
@@ -23,6 +23,8 @@ public class AppUserDetails implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
+
+    public Long getId () { return user.getId(); }
 
     @Override
     public String getPassword() {

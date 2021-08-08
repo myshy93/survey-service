@@ -1,7 +1,7 @@
 package com.dinu.survey.controller;
 
 import com.dinu.survey.controller.exception.UserAlreadyRegisteredException;
-import com.dinu.survey.entity.User;
+import com.dinu.survey.entity.AppUser;
 import com.dinu.survey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    String registerUser(@Validated @RequestBody User user) {
+    String registerUser(@Validated @RequestBody AppUser user) {
         //check if user exists in database
         if (repository.findByUsername(user.getUsername()) != null)
             throw new UserAlreadyRegisteredException(user.getUsername());

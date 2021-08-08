@@ -1,11 +1,15 @@
 package com.dinu.survey.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "user", schema = "public")
-public class User {
+@JsonIgnoreProperties(value = {"password"}, allowSetters = true)
+// make password field write-only because it appears in survey output - creator field
+public class AppUser {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
