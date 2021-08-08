@@ -14,7 +14,7 @@ public class Survey {
     private String title;
     @OneToMany(targetEntity = Question.class, cascade = CascadeType.ALL)
     private Set<Question> questions;
-    private boolean open;
+    private boolean open = false;
 
     public Long getId() {
         return id;

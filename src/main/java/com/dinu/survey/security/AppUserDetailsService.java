@@ -1,4 +1,4 @@
-package com.dinu.survey.auth;
+package com.dinu.survey.security;
 
 import com.dinu.survey.entity.User;
 import com.dinu.survey.repository.UserRepository;
@@ -7,8 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService {

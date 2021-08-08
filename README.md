@@ -11,6 +11,8 @@ This API is using Basic Authentication
 
 Roles available: ROLE_USER or ROLE_ADMIN
 
+If user already exists 409 is returned.
+
 ```json
 {
     "username": "mihai",
@@ -68,13 +70,25 @@ POST Request body example
 #### Conduct survey
 
 ##### View open surveys
-`GET /surveys?open`
+`GET /surveysopen`
 
 ##### Open survey
 `POST /surveys/{id}/open`
 
+Responses:
+
+`200 - Survey opened`
+
+`409 - Survey already open.`
+
 ##### Close survey
 `POST /surveys/{id}/close`
+
+Responses:
+
+`200 - Survey closed`
+
+`409 - Survey already closed.`
 
 ##### Respond to survey
 `POST /surveys/{id}/respond`

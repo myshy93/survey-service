@@ -1,10 +1,9 @@
-package com.dinu.survey;
+package com.dinu.survey.security;
 
-import com.dinu.survey.auth.AppUserDetailsService;
-import com.dinu.survey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,6 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/surveys/*/open").hasRole("ADMIN")
+                .antMatchers("/surveys/*/close").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/surveys").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
