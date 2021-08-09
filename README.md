@@ -95,7 +95,6 @@ Responses:
 
 ```json
 {
-  "survey": 10,
   "answers": [
     {
       "question": 1,

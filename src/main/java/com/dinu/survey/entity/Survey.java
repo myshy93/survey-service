@@ -24,6 +24,12 @@ public class Survey {
 
     private boolean open = false;
 
+    public Survey(String title, Set<Question> questions, AppUser creator, boolean open) {
+        this.title = title;
+        this.questions = questions;
+        this.creator = creator;
+        this.open = open;
+    }
     public Long getId() {
         return id;
     }

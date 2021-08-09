@@ -3,7 +3,9 @@ package com.dinu.survey.controller;
 import com.dinu.survey.controller.exception.SurveyAlreadyClosedException;
 import com.dinu.survey.controller.exception.SurveyAlreadyOpenException;
 import com.dinu.survey.controller.exception.SurveyNotFoundException;
+import com.dinu.survey.entity.QuestionResponse;
 import com.dinu.survey.entity.Survey;
+import com.dinu.survey.entity.SurveyResponse;
 import com.dinu.survey.repository.SurveyRepository;
 import com.dinu.survey.repository.SurveySpecification;
 import com.dinu.survey.service.SurveyService;
@@ -63,5 +65,21 @@ public class SurveyController {
     @PostMapping("/surveys/{id}/close")
     String closeSurvey(@PathVariable Long id) {
         return surveyService.close(id);
+    }
+
+
+    /**
+     * Respond to an open survey.
+     * @param id Survey id.
+     * @return Responses provided by user that were saved in DB.
+     */
+    @PostMapping("/surveys/{id}/respond")
+    SurveyResponse respond(@PathVariable Long id, @Valid @RequestBody SurveyResponse surveyResponse) {
+        return surveyService.respond(id, surveyResponse);
+    }
+
+    @PostMapping("/question")
+    QuestionResponse test(@Valid @RequestBody QuestionResponse questionResponse) {
+        return questionResponse;
     }
 }

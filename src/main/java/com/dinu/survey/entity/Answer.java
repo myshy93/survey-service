@@ -17,7 +17,9 @@ public class Answer {
     public Answer(String text) {
         this.text = text;
     }
-    public Answer() {}
+
+    public Answer() {
+    }
 
     public Long getId() {
         return id;

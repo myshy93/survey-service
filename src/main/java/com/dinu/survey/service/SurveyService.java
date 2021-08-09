@@ -3,9 +3,12 @@ package com.dinu.survey.service;
 import com.dinu.survey.controller.exception.SurveyAlreadyClosedException;
 import com.dinu.survey.controller.exception.SurveyAlreadyOpenException;
 import com.dinu.survey.controller.exception.SurveyNotFoundException;
+import com.dinu.survey.controller.exception.SurveyNotOpenException;
 import com.dinu.survey.entity.AppUser;
 import com.dinu.survey.entity.Survey;
+import com.dinu.survey.entity.SurveyResponse;
 import com.dinu.survey.repository.SurveyRepository;
+import com.dinu.survey.repository.SurveyResponseRepository;
 import com.dinu.survey.repository.SurveySpecification;
 import com.dinu.survey.repository.UserRepository;
 import com.dinu.survey.security.AppUserDetails;
@@ -16,6 +19,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -25,6 +29,8 @@ public class SurveyService {
     private SurveyRepository surveyRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SurveyResponseRepository surveyResponseRepository;
 
     /**
      * Add new survey. Creator field is filled with current user.
@@ -127,5 +133,26 @@ public class SurveyService {
         }
 
         return "Survey closed!";
+    }
+
+    public SurveyResponse respond(Long surveyId, @Valid @NotNull SurveyResponse surveyResponse) {
+        // add survey open constraint
+
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser = userRepository.findById(((AppUserDetails) user).getId()).orElse(null);
+
+        Survey survey = surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new SurveyNotFoundException(surveyId));
+
+        if (!survey.isOpen()) {
+            throw new SurveyNotOpenException(survey.getTitle());
+        }
+
+        surveyResponse.setSurvey(survey);
+        return surveyResponseRepository.save(surveyResponse);
+    }
+
+    public List<SurveyResponse> viewAllResponses () {
+        return surveyResponseRepository.findAll();
     }
 }

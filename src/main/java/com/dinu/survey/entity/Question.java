@@ -19,6 +19,11 @@ public class Question {
     @NotNull(message = "Required field is mandatory.")
     boolean required;
 
+    public Question(String question, Set<Answer> answers, boolean required) {
+        this.question = question;
+        this.answers = answers;
+        this.required = required;
+    }
 
     public String getQuestion() {
         return question;

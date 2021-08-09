@@ -16,7 +16,7 @@ public class AppUser {
     private Long id;
 
     @NotBlank(message = "Username is mandatory.")
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @NotBlank(message = "Password is mandatory.")
@@ -26,6 +26,12 @@ public class AppUser {
     @Column(name = "roles")
     @NotBlank(message = "Roles are mandatory.")
     private String roles;
+
+    public AppUser(String username, String password, String roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

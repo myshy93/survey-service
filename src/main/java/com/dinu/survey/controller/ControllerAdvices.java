@@ -1,9 +1,6 @@
 package com.dinu.survey.controller;
 
-import com.dinu.survey.controller.exception.SurveyAlreadyClosedException;
-import com.dinu.survey.controller.exception.SurveyAlreadyOpenException;
-import com.dinu.survey.controller.exception.SurveyNotFoundException;
-import com.dinu.survey.controller.exception.UserAlreadyRegisteredException;
+import com.dinu.survey.controller.exception.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -46,6 +43,16 @@ public class ControllerAdvices {
         return ex.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler({SurveyNotOpenException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    String surveyNotOpenHandler(@NotNull SurveyNotOpenException ex) {
+        return ex.getMessage();
+    }
+
+    /**
+     * Exception handler that send back in response what field in not valid in case of bad request
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
