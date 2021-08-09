@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
+
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
 public class QuestionResponse {
     @Id
     @GeneratedValue
@@ -21,8 +19,16 @@ public class QuestionResponse {
     @ManyToOne(targetEntity = Question.class)
     private Question question;
 
-    @ManyToOne(targetEntity = Answer.class)
-    private Answer answer;
+    @OneToMany(targetEntity = Answer.class)
+    private Set<Answer> answers;
+
+    public QuestionResponse(Question question, Set<Answer> answers) {
+        this.question = question;
+        this.answers = answers;
+    }
+
+    public QuestionResponse() {
+    }
 
     public Long getId() {
         return id;
@@ -40,11 +46,11 @@ public class QuestionResponse {
         this.question = question;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public Set<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
     }
 }

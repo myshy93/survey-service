@@ -25,6 +25,9 @@ public class Question {
         this.required = required;
     }
 
+    public Question() {
+    }
+
     public String getQuestion() {
         return question;
     }

@@ -33,6 +33,9 @@ public class AppUser {
         this.roles = roles;
     }
 
+    public AppUser() {
+    }
+
     public Long getId() {
         return id;
     }

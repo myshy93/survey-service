@@ -152,7 +152,4 @@ public class SurveyService {
         return surveyResponseRepository.save(surveyResponse);
     }
 
-    public List<SurveyResponse> viewAllResponses () {
-        return surveyResponseRepository.findAll();
-    }
 }

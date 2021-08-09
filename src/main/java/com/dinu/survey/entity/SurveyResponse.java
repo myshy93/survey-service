@@ -17,14 +17,21 @@ public class SurveyResponse {
     @ManyToOne(targetEntity = Survey.class)
     private Survey survey;
 
-    @NotBlank
     @ManyToOne(targetEntity = AppUser.class)
     private AppUser respondent;
 
     @NotBlank
-    @JsonManagedReference
     @OneToMany(targetEntity = QuestionResponse.class, cascade = CascadeType.ALL)
     private Set<QuestionResponse> responseList;
+
+    public SurveyResponse(Survey survey, AppUser respondent, Set<QuestionResponse> responseList) {
+        this.survey = survey;
+        this.respondent = respondent;
+        this.responseList = responseList;
+    }
+
+    public SurveyResponse() {
+    }
 
     public Long getId() {
         return id;

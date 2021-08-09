@@ -30,6 +30,10 @@ public class Survey {
         this.creator = creator;
         this.open = open;
     }
+
+    public Survey() {
+    }
+
     public Long getId() {
         return id;
     }

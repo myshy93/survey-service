@@ -1,14 +1,12 @@
 package com.dinu.survey.util;
 
-import com.dinu.survey.entity.Answer;
-import com.dinu.survey.entity.AppUser;
-import com.dinu.survey.entity.Question;
-import com.dinu.survey.entity.Survey;
+import com.dinu.survey.entity.*;
 import com.dinu.survey.repository.SurveyRepository;
 import com.dinu.survey.repository.SurveyResponseRepository;
 import com.dinu.survey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -22,15 +20,17 @@ public class DbInit implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private SurveyResponseRepository surveyResponseRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
     public void run(String... args) throws Exception {
         // add one normal user
-        AppUser user = new AppUser("user", "user", "ROLE_USER");
+        AppUser user = new AppUser("user", passwordEncoder.encode("user"), "ROLE_USER");
         userRepository.save(user);
         // add a admin user
-        AppUser admin = new AppUser("admin", "admin", "ROLE_ADMIN");
+        AppUser admin = new AppUser("admin", passwordEncoder.encode("admin"), "ROLE_ADMIN");
         userRepository.save(admin);
 
         // add some answers
@@ -48,8 +48,8 @@ public class DbInit implements CommandLineRunner {
         // add one survey
         Survey survey = new Survey("IT survey", Set.of(q1, q2), admin, false);
 
-
-
         surveyRepository.save(survey);
+
+        System.out.println("Database seeded!");
     }
 }

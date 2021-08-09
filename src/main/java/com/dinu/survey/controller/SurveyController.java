@@ -66,20 +66,5 @@ public class SurveyController {
     String closeSurvey(@PathVariable Long id) {
         return surveyService.close(id);
     }
-
-
-    /**
-     * Respond to an open survey.
-     * @param id Survey id.
-     * @return Responses provided by user that were saved in DB.
-     */
-    @PostMapping("/surveys/{id}/respond")
-    SurveyResponse respond(@PathVariable Long id, @Valid @RequestBody SurveyResponse surveyResponse) {
-        return surveyService.respond(id, surveyResponse);
-    }
-
-    @PostMapping("/question")
-    QuestionResponse test(@Valid @RequestBody QuestionResponse questionResponse) {
-        return questionResponse;
-    }
+    
 }
